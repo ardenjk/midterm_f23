@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name = "viewport" content = "width =\, initial scale = 1.0" />
+        <meta http-equiv = "X-UA-Compatible" content="ie-edge" />
+        <title>Fetch JSON from API and map LAT and LONG</title>
+    </head>
+
+    <body>
+        <header>Where Is the ISS?</header>
+        <p>latitude <span id = "lat"></span><br />
+            longitude <span id = "lon"></span>
+        </p>
+
+        <script>
+        const api_url = "https://api.wheretheiss.at/v1/satellites/25544"
+        async function getISS () {
+            const response = await fetch (api_url);
+            const data = await response.json();
+            const { latitude, longitude } = data; 
+
+            document.getElementById ('lat').textContent = latitude; 
+            document.getElementById ('lon').textContent = longitude; 
+        }
+            getISS(); 
+        </script>
+
+
+const FIRST_API = `https://api.whatever.com`;
+const SECOND_API = `https://api.yeah.com`;
+// Just like exercise three...
+export async function getStaticProps() {
+  // Get first API query
+  const responseFirstAPI = await fetch(FIRST_API);
+  const firstAPIData = await responseFirstAPI.json(); // This might be different for each API
+  // Get second API query
+  const responseSecondAPI = await fetch(SECOND_API);
+  const secondAPIData = await responseSecondAPI.json(); // This might be different for each API
+  // Pass the responses down as props
+  return {
+    props: {
+      firstAPIData,
+      secondAPIData,
+    },
+  };
+}
